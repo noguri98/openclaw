@@ -59,6 +59,10 @@ function isLoopbackAddress(ip: string | undefined): boolean {
   if (ip.startsWith("::ffff:127.")) {
     return true;
   }
+  // Treat Docker bridge gateway as loopback for local pairing in containerized setups
+  if (ip === "172.17.0.1" || ip === "172.18.0.1" || ip === "172.19.0.1" || ip === "172.20.0.1") {
+    return true;
+  }
   return false;
 }
 
